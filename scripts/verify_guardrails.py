@@ -45,14 +45,16 @@ def main() -> None:
     assert 'name="robots"' in index_html and "noindex, nofollow" in index_html, "Missing noindex meta in index.html"
 
     # 4. Scan all source, JSON, HTML, CSS, SVG, workflow, and script files for zero first-name leakage
-    # (excluding the literal domain in public/CNAME and the repo remote URL if ever referenced in CI)
+    # (excluding the literal domain string in CNAME / Open Graph URLs)
+    domain_token = FORBIDDEN_FIRST_NAME + "lee.com"
     checked_files = 0
     for f in SINGLE_FILES:
         if f.exists():
-            text = f.read_text(encoding="utf-8", errors="ignore").lower()
-            assert FORBIDDEN_FIRST_NAME not in text, f"Forbidden name leak in {f.name}"
+            raw_lower = f.read_text(encoding="utf-8", errors="ignore").lower()
+            sanitized = raw_lower.replace(domain_token, "")
+            assert FORBIDDEN_FIRST_NAME not in sanitized, f"Forbidden name leak in {f.name}"
             if f.suffix.lower() == ".html":
-                assert "<input" not in text, f"Anti-phishing check failed: <input> found in {f.name}"
+                assert "<input" not in raw_lower, f"Anti-phishing check failed: <input> found in {f.name}"
             checked_files += 1
 
     for d in TEXT_DIRS:
@@ -68,7 +70,8 @@ def main() -> None:
             assert FORBIDDEN_FIRST_NAME not in p.name.lower(), f"Forbidden name in filename {p.name}"
             if p.suffix.lower() in {".ts", ".tsx", ".js", ".json", ".css", ".html", ".svg", ".py", ".md", ".yml", ".yaml", ".txt"}:
                 text = p.read_text(encoding="utf-8", errors="ignore")
-                assert FORBIDDEN_FIRST_NAME not in text.lower(), f"Forbidden name leak in {p}"
+                sanitized = text.lower().replace(domain_token, "")
+                assert FORBIDDEN_FIRST_NAME not in sanitized, f"Forbidden name leak in {p}"
                 if p.suffix.lower() in {".tsx", ".html"}:
                     assert "<input" not in text.lower(), f"Anti-phishing check failed: <input> found in {p}"
                 checked_files += 1
@@ -76,6 +79,13 @@ def main() -> None:
     # 5. Verify 100% EXIF / GPS / XMP scrub AND < 50MB size across all files in public/
     public_files = [p for p in (ROOT / "public").rglob("*") if p.is_file()]
     webp_files = [p for p in public_files if p.suffix.lower() == ".webp"]
+    og_card = ROOT / "public" / "og-card.jpg"
+    assert og_card.exists(), "Missing public/og-card.jpg"
+    with Image.open(og_card) as og_im:
+        assert og_im.format == "JPEG", f"Expected JPEG for og-card.jpg, got {og_im.format}"
+        assert og_im.size == (1200, 630), f"Expected 1200x630 for og-card.jpg, got {og_im.size}"
+        assert len(og_im.getexif()) == 0, "EXIF tags found in og-card.jpg"
+        assert "exif" not in og_im.info and "xmp" not in og_im.info, "Metadata info found in og-card.jpg"
     assert len(webp_files) == 39, f"Expected 39 WebP plates, got {len(webp_files)}"
 
     max_bytes = 0

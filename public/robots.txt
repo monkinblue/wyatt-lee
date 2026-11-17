@@ -1,2 +1,28 @@
+# Allow social & messaging link-preview crawlers to read Open Graph metadata and og-card.jpg
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Block search engine indexing crawlers
 User-agent: *
 Disallow: /
