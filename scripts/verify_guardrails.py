@@ -38,11 +38,12 @@ def main() -> None:
     cname_text = (ROOT / "public" / "CNAME").read_text(encoding="utf-8").strip()
     assert cname_text.endswith(".com") and "\n" not in cname_text, "Invalid public/CNAME"
 
-    robots_text = (ROOT / "public" / "robots.txt").read_text(encoding="utf-8")
-    assert "User-agent: *" in robots_text and "Disallow: /" in robots_text, "Invalid public/robots.txt"
+    robots_text = (ROOT / "public" / "robots.txt").read_text(encoding="utf-8").strip()
+    assert robots_text == "User-agent: *\nAllow: /", f"Unexpected public/robots.txt: {robots_text!r}"
 
     index_html = (ROOT / "index.html").read_text(encoding="utf-8")
-    assert 'name="robots"' in index_html and "noindex, nofollow" in index_html, "Missing noindex meta in index.html"
+    assert '<meta name="robots" content="noindex, nofollow" />' in index_html, "Missing noindex meta in index.html"
+    assert '<meta property="og:url" content="https://wyattlee.com/" />' in index_html, "Invalid og:url in index.html"
 
     # 4. Scan all source, JSON, HTML, CSS, SVG, workflow, and script files for zero first-name leakage
     # (excluding the literal domain string in CNAME / Open Graph URLs)
