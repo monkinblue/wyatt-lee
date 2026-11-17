@@ -1,0 +1,27 @@
+# Ignore raw un-scrubbed source photographs & raw photo folders (Privacy & EXIF Guardrail)
+Paintings/
+Paintings
+raw/
+raw-photos/
+photos/
+
+# Dependencies & Build outputs
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Local Python virtual environments & caches (not needed in CI)
+.venv/
+.python/
+.uv-cache/
+.uv-bin/
+uv.toml
+venv/
+__pycache__/
+*.pyc
+
+# Logs & OS files
+*.log
+.DS_Store
+Thumbs.db

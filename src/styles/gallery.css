@@ -1,0 +1,3408 @@
+/* ==========================================================================
+   ATELIER W.L. — ARCHITECTURAL MONOGRAPH & PRIVATE SALON DESIGN SYSTEM
+   Aesthetic: Gagosian × Hauser & Wirth × Loewe × Sotheby's Evening Sale
+   ========================================================================== */
+
+:root,
+:root[data-salon-theme='daylight'] {
+  color-scheme: light;
+  --bg-ground: #F5F2EC;
+  --bg-surface: #FCFBF8;
+  --bg-plinth: #ECE7DD;
+  --bg-plinth-inner: #E3DDD1;
+  --bg-elevated: #FFFFFF;
+  --ink-primary: #111110;
+  --ink-secondary: #3D3B37;
+  --ink-muted: #69655E;
+  --hairline: rgba(17, 17, 16, 0.13);
+  --hairline-strong: rgba(17, 17, 16, 0.28);
+  --accent-gilt: #9A7632;
+  --accent-gilt-soft: rgba(154, 118, 50, 0.13);
+  --btn-primary-bg: #111110;
+  --btn-primary-fg: #FAF8F4;
+  --header-glass: rgba(245, 242, 236, 0.88);
+  --shadow-art:
+    0 24px 52px -14px rgba(17, 17, 16, 0.28),
+    0 6px 16px -4px rgba(17, 17, 16, 0.14);
+}
+
+:root[data-salon-theme='evening'] {
+  color-scheme: dark;
+  --bg-ground: #0F0F0E;
+  --bg-surface: #171715;
+  --bg-plinth: #1E1D1A;
+  --bg-plinth-inner: #141412;
+  --bg-elevated: #201F1C;
+  --ink-primary: #F3F0EA;
+  --ink-secondary: #C9C4BA;
+  --ink-muted: #969086;
+  --hairline: rgba(243, 240, 234, 0.13);
+  --hairline-strong: rgba(243, 240, 234, 0.28);
+  --accent-gilt: #CDA762;
+  --accent-gilt-soft: rgba(205, 167, 98, 0.16);
+  --btn-primary-bg: #F3F0EA;
+  --btn-primary-fg: #111110;
+  --header-glass: rgba(15, 15, 14, 0.88);
+  --shadow-art:
+    0 28px 60px -12px rgba(0, 0, 0, 0.72),
+    0 8px 22px -4px rgba(0, 0, 0, 0.52);
+}
+
+:root {
+  --font-display: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+  --font-editorial: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  --max-shell: 90rem;
+  --header-h: 5.25rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  scroll-padding-top: 5.75rem; /* WCAG 2.4.11 Focus Not Obscured under sticky header */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-ground);
+  color: var(--ink-primary);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  text-align: start;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+cite {
+  font-style: italic;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-gilt);
+  outline-offset: 3px;
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+.wl-sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: clip;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wl-skip-link {
+  position: fixed;
+  inset-block-start: -8rem;
+  inset-inline-start: 1rem;
+  z-index: 999;
+  padding: 0.75rem 1.25rem;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.wl-skip-link:focus {
+  inset-block-start: 1rem;
+}
+
+/* ==========================================================================
+   VIEW TRANSITIONS (Same-Document Morphing & Reduced-Motion Safety)
+   ========================================================================== */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   CUSTOM GALLERY RETICLE CURSOR (Fine Pointer + Motion Preference Safe)
+   ========================================================================== */
+
+.wl-custom-cursor {
+  display: none;
+}
+
+@media (pointer: fine) {
+  .wl-custom-cursor {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    z-index: 900;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-inline-start: -10px;
+    margin-block-start: -10px;
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: opacity 0.15s ease;
+  }
+
+  .wl-custom-cursor.is-visible {
+    opacity: 1;
+  }
+}
+
+.wl-custom-cursor-ring {
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-gilt);
+  background: rgba(154, 118, 50, 0.08);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.wl-custom-cursor.is-expanded .wl-custom-cursor-ring {
+  transform: scale(1.45);
+  background: rgba(154, 118, 50, 0.22);
+}
+
+.wl-custom-cursor-label {
+  padding: 0.22rem 0.55rem;
+  background: var(--ink-primary);
+  color: var(--bg-ground);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY & SHARED TOKENS
+   ========================================================================== */
+
+.wl-eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.wl-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.wl-gilt-text {
+  color: var(--accent-gilt);
+  font-weight: 500;
+}
+
+.wl-section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: end;
+  padding-block-end: 2rem;
+  border-block-end: 1px solid var(--hairline);
+  margin-block-end: 2.25rem;
+}
+
+.wl-section-title {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  /* Max <= 2.5 * min for WCAG 1.4.4 200% zoom compliance */
+  font-size: clamp(1.9rem, 1.35rem + 2.1vw, 3.6rem);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.wl-section-lead {
+  margin: 0;
+  max-inline-size: 56ch;
+  color: var(--ink-secondary);
+  font-family: var(--font-editorial);
+  font-size: clamp(1.1rem, 1rem + 0.35vw, 1.32rem);
+  line-height: 1.48;
+  text-wrap: pretty;
+}
+
+@media (max-width: 860px) {
+  .wl-section-header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ==========================================================================
+   BUTTONS & ARCHITECTURAL CONTROLS (Zero Fixed Heights — WCAG 1.4.12 Safe)
+   ========================================================================== */
+
+.wl-btn-primary,
+.wl-btn-secondary,
+.wl-btn-ghost {
+  display: inline-flex;
+  align-items: safe center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-block-size: 2.85rem;
+  padding: 0.72rem 1.35rem;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.wl-btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  border: 1px solid var(--btn-primary-bg);
+}
+
+.wl-btn-primary:hover {
+  background: var(--accent-gilt);
+  border-color: var(--accent-gilt);
+  color: #FFFFFF;
+}
+
+.wl-btn-secondary {
+  background: transparent;
+  color: var(--ink-primary);
+  border: 1px solid var(--hairline-strong);
+}
+
+.wl-btn-secondary:hover {
+  border-color: var(--ink-primary);
+  background: var(--accent-gilt-soft);
+}
+
+.wl-btn-ghost {
+  background: transparent;
+  color: var(--ink-secondary);
+  border: 1px solid transparent;
+  padding-inline: 0.6rem;
+}
+
+.wl-btn-ghost:hover {
+  color: var(--ink-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.wl-full-width {
+  inline-size: 100%;
+}
+
+/* Authentic Google Pay Pill Button */
+.wl-gpay-pill-btn {
+  display: inline-flex;
+  align-items: safe center;
+  justify-content: center;
+  gap: 0.55rem;
+  inline-size: 100%;
+  min-block-size: 3.05rem;
+  padding: 0.72rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid #2A2A28;
+  background: #131314;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.wl-gpay-pill-btn:hover {
+  background: #222225;
+  border-color: var(--accent-gilt);
+}
+
+.wl-gpay-prefix {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.wl-gpay-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.wl-gpay-word {
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   SHRINKING ARCHITECTURAL HEADER + SCROLL PROGRESS BAR
+   ========================================================================== */
+
+.wl-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 120;
+  background: var(--header-glass);
+  backdrop-filter: blur(14px);
+  border-block-end: 1px solid var(--hairline);
+}
+
+.wl-header-inner {
+  max-inline-size: var(--max-shell);
+  margin-inline: auto;
+  padding-inline: clamp(0.85rem, 2.5vw, 2.75rem);
+  padding-block: 0.9rem;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: safe center;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  transition: padding-block 0.25s ease;
+}
+
+.wl-folio-label-compact {
+  display: none;
+}
+
+.wl-mobile-subnav {
+  display: none;
+}
+
+@media (max-width: 1260px) {
+  .wl-wordmark-sub {
+    display: none;
+  }
+}
+
+@media (max-width: 1060px) {
+  .wl-desktop-only-nav {
+    display: none;
+  }
+
+  .wl-header-inner {
+    padding-block: 0.62rem;
+    gap: 0.5rem;
+  }
+
+  .wl-wordmark-primary {
+    font-size: 1.22rem;
+    letter-spacing: 0.1em;
+  }
+
+  .wl-hide-xs,
+  .wl-folio-label-full {
+    display: none;
+  }
+
+  .wl-folio-label-compact {
+    display: inline;
+  }
+
+  .wl-util-btn {
+    min-block-size: 2.05rem;
+    padding: 0.28rem 0.52rem;
+    font-size: 0.66rem;
+  }
+
+  .wl-folio-trigger {
+    min-block-size: 2.05rem;
+    padding: 0.3rem 0.62rem;
+    gap: 0.4rem;
+    font-size: 0.66rem;
+  }
+
+  .wl-mobile-subnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0.5rem;
+    padding: 0.48rem 0.75rem;
+    background: var(--bg-surface);
+    border-block-end: 1px solid var(--hairline);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .wl-mobile-subnav-link {
+    background: none;
+    border: 0;
+    padding: 0.2rem 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-secondary);
+    white-space: nowrap;
+  }
+}
+
+.wl-header.is-scrolled-fallback .wl-header-inner {
+  padding-block: 0.62rem;
+}
+
+/* Scroll-Driven Header Compression & Progress Indicator (Gated per modern-web-guidance) */
+.wl-scroll-progress {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 2px;
+  background: var(--accent-gilt);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: scroll()) and (animation-range: 0% 100%)) {
+    @keyframes wl-progress-scale {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes wl-header-condense {
+      to {
+        padding-block: 0.58rem;
+      }
+    }
+
+    .wl-scroll-progress {
+      animation: wl-progress-scale auto linear both;
+      animation-timeline: scroll(block root);
+      animation-range: 0% 100%;
+    }
+
+    .wl-header-inner {
+      animation: wl-header-condense auto linear both;
+      animation-timeline: scroll(block root);
+      animation-range: 0px 140px;
+    }
+  }
+}
+
+.wl-brand-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: start;
+}
+
+.wl-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.wl-wordmark-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.wl-wordmark-primary {
+  font-family: var(--font-display);
+  font-size: 1.48rem;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+
+.wl-wordmark-sub {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-muted);
+  margin-block-start: 0.22rem;
+}
+
+.wl-primary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.35rem 1.4rem;
+}
+
+.wl-nav-link {
+  background: none;
+  border: 0;
+  padding: 0.35rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+  border-block-end: 1px solid transparent;
+}
+
+.wl-nav-link:hover,
+.wl-nav-link.is-current {
+  color: var(--ink-primary);
+  border-block-end-color: var(--accent-gilt);
+}
+
+.wl-nav-index {
+  font-size: 0.64rem;
+  color: var(--accent-gilt);
+  vertical-align: super;
+}
+
+.wl-header-utilities {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.55rem;
+}
+
+.wl-util-btn {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-block-size: 2.3rem;
+  padding: 0.38rem 0.7rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.wl-util-btn:hover {
+  border-color: var(--ink-primary);
+}
+
+.wl-util-kicker {
+  color: var(--ink-muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.wl-util-val {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.wl-folio-trigger {
+  display: inline-flex;
+  align-items: safe center;
+  gap: 0.6rem;
+  min-block-size: 2.35rem;
+  padding: 0.42rem 0.9rem;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  border: 1px solid var(--btn-primary-bg);
+  font-family: var(--font-mono);
+  font-size: 0.71rem;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.wl-folio-trigger:hover {
+  background: var(--accent-gilt);
+  border-color: var(--accent-gilt);
+  color: #FFFFFF;
+}
+
+.wl-folio-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.35rem;
+  padding-inline: 0.3rem;
+  background: var(--accent-gilt);
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+@media (max-width: 1060px) {
+  .wl-primary-nav.wl-desktop-only-nav {
+    display: none;
+  }
+
+  .wl-header-utilities {
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+  }
+
+  .wl-wordmark {
+    gap: 0.45rem;
+  }
+
+  .wl-wordmark-monogram {
+    inline-size: 24px;
+    block-size: 24px;
+  }
+
+  .wl-wordmark-primary {
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+}
+
+/* ==========================================================================
+   BRAND STAMPS & ROTATING STUDIO SEAL
+   ========================================================================== */
+
+.wl-studio-seal {
+  flex-shrink: 0;
+  color: var(--ink-primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes wl-slow-orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .wl-seal-orbit {
+    transform-origin: 70px 70px;
+    animation: wl-slow-orbit 46s linear infinite;
+  }
+}
+
+.wl-registrar-stamp {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.45rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--accent-gilt);
+  color: var(--accent-gilt);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.wl-registrar-stamp-dot {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 999px;
+  background: var(--accent-gilt);
+}
+
+.wl-registrar-stamp-code {
+  opacity: 0.78;
+  padding-inline-start: 0.4rem;
+  border-inline-start: 1px solid var(--accent-gilt);
+}
+
+/* ==========================================================================
+   MAIN CONTAINER & HERO EXHIBITION COVER
+   ========================================================================== */
+
+.wl-app-shell {
+  background-color: var(--bg-ground);
+  min-block-size: 100dvh;
+}
+
+.wl-main {
+  max-inline-size: var(--max-shell);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2.75rem);
+  background-color: var(--bg-ground);
+}
+
+.wl-hero {
+  padding-block: 1.25rem 4.5rem;
+  border-block-end: 1px solid var(--hairline);
+}
+
+.wl-hero-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block-end: 1.1rem;
+  margin-block-end: 2rem;
+  border-block-end: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+}
+
+.wl-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 4.25rem);
+  align-items: center;
+}
+
+.wl-hero-kicker-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.75rem 1rem;
+  margin-block-end: 1.15rem;
+}
+
+.wl-hero-title {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  /* Max <= 2.5 * min for WCAG 1.4.4 */
+  font-size: clamp(2.35rem, 1.65rem + 2.8vw, 4.75rem);
+  line-height: 0.99;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.wl-hero-subtitle {
+  margin: 0 0 1.75rem;
+  max-inline-size: 52ch;
+  font-family: var(--font-editorial);
+  font-size: clamp(1.16rem, 1.04rem + 0.45vw, 1.45rem);
+  line-height: 1.45;
+  color: var(--ink-secondary);
+  text-wrap: pretty;
+}
+
+.wl-hero-lot-callout {
+  margin: 0 0 1.85rem;
+  padding-block: 1rem;
+  border-block: 1px solid var(--hairline);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.wl-hero-lot-callout dt {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  margin-block-end: 0.25rem;
+}
+
+.wl-hero-lot-callout dd {
+  margin: 0;
+  font-family: var(--font-editorial);
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+
+.wl-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block-end: 2.25rem;
+}
+
+.wl-hero-seal-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-block-start: 1.25rem;
+  border-block-start: 1px solid var(--hairline);
+}
+
+.wl-hero-curatorial-note {
+  margin: 0;
+  max-inline-size: 46ch;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.06rem;
+  line-height: 1.45;
+  color: var(--ink-secondary);
+}
+
+.wl-quote-citation {
+  display: block;
+  margin-block-start: 0.35rem;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.wl-hero-figure {
+  margin: 0;
+}
+
+.wl-hero-figcaption {
+  margin-block-start: 0.95rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.wl-plate-caption {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+}
+
+@media (max-width: 960px) {
+  .wl-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wl-hero-lot-callout {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}
+
+/* ==========================================================================
+   3-MODE ARTWORK STAGE: RAW STUDIO / MUSEUM FLOAT FRAME / IN SITU ROOM
+   ========================================================================== */
+
+.wl-studio-plinth {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.35rem, 3.2vw, 2.6rem);
+  background: radial-gradient(
+    circle at 50% 24%,
+    var(--bg-surface) 0%,
+    var(--bg-plinth) 72%,
+    var(--bg-plinth-inner) 100%
+  );
+  border: 1px solid var(--hairline);
+  overflow: clip;
+  min-block-size: 20rem;
+}
+
+.wl-studio-plinth.is-clickable,
+.wl-insitu-room.is-clickable {
+  cursor: pointer;
+}
+
+.wl-gallery-track-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 68% 55% at 50% 14%,
+    rgba(255, 251, 240, 0.42),
+    transparent 72%
+  );
+}
+
+:root[data-salon-theme='evening'] .wl-gallery-track-glow {
+  background: radial-gradient(
+    ellipse 64% 54% at 50% 14%,
+    rgba(255, 244, 214, 0.14),
+    transparent 70%
+  );
+}
+
+.wl-canvas-wrap {
+  position: relative;
+  z-index: 1;
+  max-inline-size: 100%;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.wl-canvas-rabbet {
+  position: relative;
+  overflow: clip;
+}
+
+.wl-artwork-img {
+  inline-size: 100%;
+  block-size: auto;
+  max-block-size: 36rem;
+  object-fit: contain;
+}
+
+.wl-lot-card-stage .wl-artwork-img {
+  max-block-size: 21rem;
+}
+
+/* Mode 1: Raw Studio State (Unframed Canvas Edge + Subtle Tack Shadow) */
+.wl-canvas-wrap.mode-raw {
+  box-shadow: var(--shadow-art);
+}
+
+.wl-canvas-wrap.mode-raw .wl-canvas-rabbet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.22);
+}
+
+/* Mode 2: Custom Architectural Museum Float Frame */
+.wl-canvas-wrap.mode-float {
+  padding: 11px;
+  background: #0B0B0A; /* Deep museum shadowbox float reveal */
+  box-shadow:
+    0 28px 56px -14px rgba(0, 0, 0, 0.42),
+    0 10px 22px -6px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.wl-canvas-wrap.mode-float.material-obsidian {
+  border: 13px solid #1C1B1A;
+  outline: 1px solid #353330;
+}
+
+.wl-canvas-wrap.mode-float.material-walnut {
+  border: 13px solid #4A3121;
+  border-top-color: #5D3E2A;
+  border-bottom-color: #362216;
+  outline: 1px solid #2A1A10;
+}
+
+.wl-canvas-wrap.mode-float.material-aluminum {
+  border: 12px solid #C5C1B8;
+  border-top-color: #DCD8CF;
+  border-bottom-color: #9A968D;
+  outline: 1px solid #7D7970;
+}
+
+.wl-canvas-wrap.mode-float .wl-canvas-rabbet {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.78);
+}
+
+.wl-museum-glazing {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.11) 0%,
+    rgba(255, 255, 255, 0.02) 36%,
+    transparent 52%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+}
+
+/* Interactive Cursor Raking-Light Spotlight */
+.wl-raking-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 210px at var(--spot-x, 50%) var(--spot-y, 30%),
+    rgba(255, 250, 235, 0.14),
+    transparent 75%
+  );
+}
+
+/* 2.6x Raking-Light Magnifier Loupe */
+.wl-loupe-lens {
+  position: absolute;
+  z-index: 6;
+  inline-size: 168px;
+  block-size: 168px;
+  margin-inline-start: -84px;
+  margin-block-start: -84px;
+  border-radius: 999px;
+  border: 2px solid var(--accent-gilt);
+  background-repeat: no-repeat;
+  background-size: 260%;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.45),
+    inset 0 0 18px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+
+.wl-loupe-tag {
+  position: absolute;
+  inset-block-end: -1.55rem;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  padding: 0.15rem 0.45rem;
+  background: #111110;
+  color: #FAF8F4;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* Mode 3: In Situ Architectural Collector's Space */
+.wl-insitu-room {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  inline-size: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: clip;
+  border: 1px solid var(--hairline);
+}
+
+/* Room 1: Zurich Cast-Concrete Kunsthalle */
+.wl-insitu-room.room-zurich {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.035) 0px,
+      rgba(0, 0, 0, 0.035) 1px,
+      transparent 1px,
+      transparent 140px
+    ),
+    radial-gradient(circle at 50% 34%, #DDDAD3 0%, #C6C2B9 68%, #B2AEA5 100%);
+  color: #1D1C1A;
+}
+
+/* Room 2: Tribeca Limewash Clerestory Loft */
+.wl-insitu-room.room-tribeca {
+  background: radial-gradient(
+    circle at 46% 30%,
+    #F5EFE4 0%,
+    #E6DECFE8 64%,
+    #D5CBB9 100%
+  );
+  color: #24211D;
+}
+
+/* Room 3: Geneva Honed Basalt Private Vault */
+.wl-insitu-room.room-geneva {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 110px
+    ),
+    radial-gradient(circle at 50% 34%, #2B2A28 0%, #191817 65%, #10100F 100%);
+  color: #EAE6DF;
+}
+
+.wl-insitu-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: conic-gradient(
+    from 162deg at 50% -12%,
+    transparent 0deg,
+    rgba(255, 251, 238, 0.34) 18deg,
+    transparent 36deg
+  );
+}
+
+.wl-insitu-window-cast {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.wl-insitu-room.room-tribeca .wl-insitu-window-cast {
+  opacity: 1;
+  background: linear-gradient(
+    118deg,
+    rgba(255, 252, 242, 0.35) 0%,
+    rgba(255, 252, 242, 0.14) 38%,
+    rgba(40, 34, 24, 0.06) 39%,
+    transparent 74%
+  );
+}
+
+.wl-insitu-scale-ruler {
+  position: absolute;
+  inset-block: 0.85rem 22%;
+  inset-inline-start: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  opacity: 0.48;
+  border-inline-start: 1px dashed currentColor;
+  padding-inline-start: 0.35rem;
+  pointer-events: none;
+}
+
+.wl-insitu-hang-zone {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem 2.25rem 0.65rem;
+  min-block-size: 0;
+}
+
+.wl-insitu-framed-piece {
+  display: grid;
+  place-items: center;
+  max-block-size: 100%;
+  inline-size: var(--hang-max-w, 48%);
+}
+
+.wl-insitu-framed-piece .wl-canvas-wrap {
+  padding: 6px;
+  background: #0D0D0C;
+  border: 7px solid #23211F;
+  box-shadow:
+    0 20px 38px -8px rgba(0, 0, 0, 0.46),
+    0 6px 14px rgba(0, 0, 0, 0.26);
+}
+
+.wl-insitu-framed-piece .wl-artwork-img {
+  max-block-size: 14.5rem;
+}
+
+.wl-insitu-stage-large .wl-insitu-framed-piece .wl-artwork-img,
+.wl-lot-primary-stage .wl-insitu-framed-piece .wl-artwork-img {
+  max-block-size: 21rem;
+}
+
+.wl-insitu-floor {
+  position: relative;
+  z-index: 2;
+  block-size: 3.4rem;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.26));
+  border-block-start: 1px solid rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Architectural Travertine Gallery Viewing Bench (195cm Scale Reference) */
+.wl-insitu-bench {
+   inline-size: min(44%, 13.5rem);
+  margin-block-start: -0.75rem;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.32));
+}
+
+.wl-insitu-bench-top {
+  block-size: 0.58rem;
+  background: linear-gradient(90deg, #DFD9CE, #C9C1B3);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.wl-insitu-room.room-geneva .wl-insitu-bench-top {
+  background: linear-gradient(90deg, #3A3835, #292826);
+}
+
+.wl-insitu-bench-legs {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 12%;
+}
+
+.wl-insitu-bench-legs span {
+  inline-size: 0.55rem;
+  block-size: 0.95rem;
+  background: #9E978B;
+}
+
+.wl-insitu-room.room-geneva .wl-insitu-bench-legs span {
+  background: #242321;
+}
+
+.wl-insitu-caption-bar {
+  position: absolute;
+  inset-block-end: 0.45rem;
+  inset-inline: 0.85rem;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.07em;
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .wl-insitu-room {
+    aspect-ratio: 4 / 3.8;
+  }
+  .wl-insitu-caption-bar span:last-child {
+    display: none;
+  }
+}
+
+/* Mode Chip Bars */
+.wl-stage-mode-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.wl-mode-chip {
+  min-block-size: 2.05rem;
+  padding: 0.34rem 0.72rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-secondary);
+}
+
+.wl-mode-chip:hover {
+  border-color: var(--ink-primary);
+  color: var(--ink-primary);
+}
+
+.wl-mode-chip.is-active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  border-color: var(--btn-primary-bg);
+}
+
+/* ==========================================================================
+   CATALOGUE RAISONNÉ GRID — CSS SUBGRID + CONTAINER QUERIES
+   ========================================================================== */
+
+.wl-catalogue-section {
+  padding-block: 4.5rem;
+  border-block-end: 1px solid var(--hairline);
+}
+
+.wl-catalogue-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-block-end: 2.25rem;
+}
+
+.wl-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  flex-wrap: balance;
+  gap: 0.45rem;
+}
+
+.wl-filter-pill {
+  min-block-size: 2.15rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-secondary);
+}
+
+.wl-filter-pill:hover {
+  border-color: var(--ink-primary);
+  color: var(--ink-primary);
+}
+
+.wl-filter-pill.is-active {
+  background: var(--ink-primary);
+  color: var(--bg-ground);
+  border-color: var(--ink-primary);
+}
+
+.wl-global-framing-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.4rem;
+}
+
+.wl-framing-bar-label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin-inline-end: 0.25rem;
+}
+
+/* Parent Grid + Subgrid Child Alignment */
+.wl-lot-grid {
+  inline-size: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22.5rem), 1fr));
+  grid-auto-rows: auto auto 1fr auto;
+  column-gap: 2rem;
+  row-gap: 0.85rem;
+}
+
+.wl-lot-card {
+  container: lot-card / inline-size;
+  grid-row: span 4;
+  display: grid;
+  /* Same-cascade fallback for older browsers */
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: subgrid;
+  row-gap: 0.85rem;
+  margin-block-end: 1.65rem;
+  padding: 1.15rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+  transition: border-color 0.25s ease;
+}
+
+.wl-lot-card:hover {
+  border-color: var(--hairline-strong);
+}
+
+.wl-lot-card-stage {
+  display: flex;
+  flex-direction: column;
+}
+
+.wl-lot-card-stage .wl-studio-plinth,
+.wl-lot-card-stage .wl-insitu-room {
+  aspect-ratio: 4 / 3.65;
+  min-block-size: 0;
+  padding: 1.15rem;
+}
+
+.wl-lot-card-stage .wl-insitu-room {
+  padding: 0;
+}
+
+.wl-lot-card-stage .wl-artwork-img {
+  max-block-size: 15rem;
+  inline-size: auto;
+  max-inline-size: 100%;
+  margin-inline: auto;
+}
+
+.wl-lot-card-stage .wl-insitu-framed-piece .wl-artwork-img {
+  max-block-size: 9.75rem;
+}
+
+.wl-card-mode-toggles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--hairline);
+  border-block-start: 0;
+  background: var(--bg-ground);
+}
+
+.wl-card-mode-toggles .wl-mini-mode-btn {
+  border-inline-end: 1px solid var(--hairline);
+  padding-block: 0.34rem;
+}
+
+.wl-card-mode-toggles .wl-mini-mode-btn:last-child {
+  border-inline-end: 0;
+}
+
+.wl-mini-mode-btn {
+  min-block-size: 1.55rem;
+  padding: 0.18rem 0.48rem;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-secondary);
+}
+
+.wl-mini-mode-btn.is-active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.wl-lot-card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-self: start;
+}
+
+.wl-lot-datum-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-block-end: 0.35rem;
+}
+
+.wl-lot-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--accent-gilt);
+}
+
+.wl-cat-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+}
+
+.wl-palette-dots {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin-inline-start: auto;
+}
+
+.wl-palette-dots i {
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+}
+
+.wl-lot-card-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.75rem);
+  line-height: 1.14;
+}
+
+@supports (font-size: 1cqi) {
+  .wl-lot-card-title {
+    font-size: clamp(1.32rem, 4.6cqi, 1.82rem);
+  }
+}
+
+.wl-title-link-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: start;
+  color: inherit;
+}
+
+.wl-title-link-btn:hover {
+  color: var(--accent-gilt);
+}
+
+.wl-lot-year-dims {
+  margin: 0.3rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+}
+
+.wl-lot-card-notes {
+  border-block-start: 1px solid var(--hairline);
+  padding-block-start: 0.75rem;
+  font-size: 0.86rem;
+  color: var(--ink-secondary);
+}
+
+.wl-lot-medium {
+  margin: 0 0 0.55rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: clip;
+}
+
+.wl-lot-prov {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+.wl-lot-prov span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+
+.wl-lot-card-footer {
+  padding-block-start: 0.85rem;
+  border-block-start: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.wl-lot-valuation-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.wl-val-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+}
+
+.wl-val-price {
+  font-family: var(--font-mono);
+  font-size: 0.94rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.wl-lot-card-actions {
+  display: flex;
+  gap: 0.45rem;
+  margin-inline-start: auto;
+}
+
+.wl-card-btn-secondary,
+.wl-card-btn-primary {
+  min-block-size: 2.2rem;
+  padding: 0.38rem 0.78rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.wl-card-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--hairline-strong);
+}
+
+.wl-card-btn-secondary:hover {
+  border-color: var(--ink-primary);
+}
+
+.wl-card-btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  border: 1px solid var(--btn-primary-bg);
+}
+
+.wl-card-btn-primary:hover,
+.wl-card-btn-primary.is-added {
+  background: var(--accent-gilt);
+  border-color: var(--accent-gilt);
+  color: #FFFFFF;
+}
+
+/* Scroll-Driven Card Entry Reveal (Progressive Enhancement per modern-web-guidance) */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    @keyframes wl-card-reveal {
+      from {
+        opacity: 0.18;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .wl-scroll-reveal {
+      animation: wl-card-reveal auto ease-out backwards;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+
+/* ==========================================================================
+   IN SITU VIEWING ROOM SIMULATOR SECTION
+   ========================================================================== */
+
+.wl-insitu-section {
+  padding-block: 4.5rem;
+  border-block-end: 1px solid var(--hairline);
+}
+
+.wl-insitu-showcase-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(0, 0.92fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.wl-insitu-controls-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.wl-control-label {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+}
+
+.wl-room-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.wl-room-card-btn {
+  padding: 0.7rem 0.9rem;
+  text-align: start;
+  background: var(--bg-ground);
+  border: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+
+.wl-room-card-btn strong {
+  font-family: var(--font-editorial);
+  font-size: 1.06rem;
+}
+
+.wl-room-card-btn span {
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+}
+
+.wl-room-card-btn.is-active {
+  border-color: var(--accent-gilt);
+  background: var(--accent-gilt-soft);
+}
+
+.wl-material-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.wl-insitu-thumb-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr));
+  gap: 0.45rem;
+}
+
+.wl-insitu-thumb-btn {
+  padding: 0.22rem;
+  background: var(--bg-ground);
+  border: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.22rem;
+}
+
+.wl-insitu-thumb-btn img {
+  inline-size: 100%;
+  aspect-ratio: 4 / 3;
+  block-size: auto;
+  object-fit: cover;
+}
+
+.wl-insitu-thumb-btn img.is-diptych-thumb {
+  object-fit: contain;
+  background: var(--bg-plinth);
+}
+
+.wl-insitu-thumb-btn span {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+}
+
+.wl-insitu-thumb-btn.is-selected {
+  border-color: var(--accent-gilt);
+  outline: 1px solid var(--accent-gilt);
+}
+
+.wl-insitu-active-summary {
+  padding-block-start: 1rem;
+  border-block-start: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wl-insitu-work-title {
+  margin: 0.2rem 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+}
+
+.wl-insitu-work-price {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.wl-insitu-summary-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 980px) {
+  .wl-insitu-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   MONOGRAPH ESSAY, MACRO TRIPTYCH & NATIVE <DETAILS> ACCORDIONS
+   ========================================================================== */
+
+.wl-monograph-section {
+  padding-block: 4.5rem;
+}
+
+.wl-macro-triptych {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem;
+  margin-block-end: 4.5rem;
+}
+
+.wl-macro-card {
+  margin: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+  padding: 0.9rem;
+}
+
+.wl-macro-img-btn {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  overflow: clip;
+}
+
+.wl-macro-img-btn img {
+  inline-size: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wl-macro-img-btn:hover img {
+    transform: scale(1.05);
+  }
+}
+
+.wl-macro-plate-tag {
+  position: absolute;
+  inset-block-end: 0.6rem;
+  inset-inline-start: 0.6rem;
+  padding: 0.22rem 0.55rem;
+  background: rgba(17, 17, 16, 0.82);
+  color: #FAF8F4;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+}
+
+.wl-macro-caption {
+  padding-block-start: 0.85rem;
+}
+
+.wl-macro-caption strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
+.wl-macro-caption p {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-secondary);
+  text-wrap: pretty;
+}
+
+.wl-monograph-editorial-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  padding-block-start: 3rem;
+  border-block-start: 1px solid var(--hairline);
+}
+
+.wl-essay-headline {
+  margin: 0.55rem 0 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 1.35rem + 1.6vw, 2.85rem);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.wl-essay-columns p {
+  margin: 0 0 1.25rem;
+  max-inline-size: 62ch;
+  font-family: var(--font-editorial);
+  font-size: 1.2rem;
+  line-height: 1.62;
+  color: var(--ink-secondary);
+  text-wrap: pretty;
+}
+
+.wl-dropcap::first-letter {
+  float: inline-start;
+  font-family: var(--font-display);
+  font-size: 4.1rem;
+  line-height: 0.84;
+  padding-inline-end: 0.55rem;
+  padding-block-start: 0.2rem;
+  color: var(--ink-primary);
+}
+
+.wl-bio-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+  padding: 1.5rem;
+  margin-block-end: 1.25rem;
+}
+
+.wl-bio-seal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block-end: 1rem;
+  border-block-end: 1px solid var(--hairline);
+}
+
+.wl-bio-name {
+  margin: 0.25rem 0;
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 400;
+}
+
+.wl-bio-origin {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+}
+
+.wl-chronology-list {
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.wl-chronology-list > div {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 0.75rem;
+  font-size: 0.86rem;
+}
+
+.wl-chronology-list dt {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--accent-gilt);
+}
+
+.wl-chronology-list dd {
+  margin: 0;
+  color: var(--ink-secondary);
+}
+
+/* Native <details name="registrar-dossier"> Disclosure Styling */
+.wl-registrar-accordions {
+  border-block-start: 1px solid var(--hairline);
+}
+
+.wl-registrar-accordions details {
+  border-block-end: 1px solid var(--hairline);
+  background: var(--bg-surface);
+}
+
+.wl-registrar-accordions summary {
+  list-style: none;
+  padding: 0.95rem 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.wl-registrar-accordions summary::-webkit-details-marker {
+  display: none;
+}
+
+.wl-registrar-accordions summary::after {
+  content: '+';
+  font-size: 1rem;
+  color: var(--accent-gilt);
+}
+
+.wl-registrar-accordions details[open] summary::after {
+  content: '−';
+}
+
+.wl-registrar-accordions details p {
+  margin: 0;
+  padding: 0 1.15rem 1.1rem;
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+  max-inline-size: 58ch;
+}
+
+@media (max-width: 900px) {
+  .wl-macro-triptych,
+  .wl-monograph-editorial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   INDIVIDUAL LOT MONOGRAPH VIEW
+   ========================================================================== */
+
+.wl-lot-monograph-view {
+  padding-block: 1.25rem 5rem;
+}
+
+.wl-lot-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-block-end: 1.15rem;
+  margin-block-end: 2rem;
+  border-block-end: 1px solid var(--hairline);
+}
+
+.wl-back-link,
+.wl-seq-btn {
+  background: none;
+  border: 1px solid var(--hairline);
+  min-block-size: 2.15rem;
+  padding: 0.35rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.wl-back-link:hover,
+.wl-seq-btn:hover {
+  border-color: var(--ink-primary);
+}
+
+.wl-lot-seq-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.6rem;
+}
+
+.wl-seq-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+}
+
+.wl-lot-monograph-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 4vw, 3.75rem);
+  align-items: start;
+}
+
+.wl-lot-stage-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.wl-lot-stage-toolbar {
+  margin-block-start: 0.9rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.wl-sub-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.3rem;
+}
+
+.wl-sub-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--ink-muted);
+  margin-inline-end: 0.25rem;
+}
+
+.wl-loupe-toggle {
+  min-block-size: 1.9rem;
+  padding: 0.28rem 0.65rem;
+  background: transparent;
+  border: 1px solid var(--hairline-strong);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+}
+
+.wl-loupe-toggle.is-active {
+  border-color: var(--accent-gilt);
+  color: var(--accent-gilt);
+}
+
+.wl-lot-macro-panel {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+}
+
+.wl-lot-macro-panel img {
+  inline-size: 9.5rem;
+  aspect-ratio: 1 / 1;
+  block-size: auto;
+  object-fit: cover;
+  border: 1px solid var(--hairline);
+}
+
+@media (max-width: 560px) {
+  .wl-lot-macro-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .wl-lot-macro-panel img {
+    inline-size: 100%;
+    max-inline-size: 13.5rem;
+  }
+}
+
+.wl-lot-macro-panel figcaption p {
+  margin: 0.35rem 0 0;
+  font-size: 0.86rem;
+  color: var(--ink-secondary);
+}
+
+.wl-lot-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.75rem;
+  margin-block-end: 0.75rem;
+}
+
+.wl-lot-num-large {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  padding: 0.25rem 0.6rem;
+  background: var(--ink-primary);
+  color: var(--bg-ground);
+}
+
+.wl-artist-attribution {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-secondary);
+}
+
+.wl-lot-monograph-title {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 1.5rem + 1.8vw, 3.2rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.wl-lot-date-scale {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-muted);
+}
+
+.wl-acquisition-card {
+  padding: 1.4rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline-strong);
+  margin-block-end: 1.75rem;
+}
+
+.wl-acq-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-end: 1.25rem;
+}
+
+.wl-acq-primary-price {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.4rem + 1vw, 2.35rem);
+  line-height: 1.1;
+  margin-block: 0.2rem;
+}
+
+.wl-acq-estimate {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+}
+
+.wl-acq-cta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.wl-acq-footnote {
+  margin: 0.85rem 0 0;
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+}
+
+.wl-dossier-specs {
+  margin: 0 0 1.75rem;
+  border-block-start: 1px solid var(--hairline);
+}
+
+.wl-dossier-specs > div {
+  padding-block: 0.9rem;
+  border-block-end: 1px solid var(--hairline);
+  display: grid;
+  grid-template-columns: 10.5rem 1fr;
+  gap: 1rem;
+}
+
+.wl-dossier-specs dt {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+}
+
+.wl-dossier-specs dd {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+}
+
+.wl-dossier-list {
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.wl-dt-with-popover {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.wl-info-toggletip-btn {
+  inline-size: 1.2rem;
+  block-size: 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  background: var(--bg-surface);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+}
+
+.wl-swatch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.wl-swatch-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline);
+  font-size: 0.68rem;
+}
+
+.wl-swatch-box {
+  inline-size: 12px;
+  block-size: 12px;
+  border: 1px solid var(--hairline-strong);
+}
+
+.wl-lot-curatorial-note p {
+  margin: 0.6rem 0 0;
+  max-inline-size: 60ch;
+  font-family: var(--font-editorial);
+  font-size: 1.18rem;
+  line-height: 1.62;
+  color: var(--ink-secondary);
+  text-wrap: pretty;
+}
+
+@media (max-width: 960px) {
+  .wl-lot-monograph-grid {
+    grid-template-columns: 1fr;
+  }
+  .wl-dossier-specs > div {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
+
+/* ==========================================================================
+   NATIVE POPOVERS & MODAL DIALOGS (Top-Layer Animations + Overscroll Contain)
+   ========================================================================== */
+
+/* MANDATORY per modern-web-guidance `dialog` guide: contain scroll without touching body */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Currency & Conservation Popovers (Native + Polyfill compatible `:is()`) */
+[popover] {
+  border: 1.5px solid var(--ink-primary);
+  background: var(--bg-surface);
+  color: var(--ink-primary);
+  padding: 0.95rem 1rem;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.34);
+  max-inline-size: min(22rem, 92dvw);
+  opacity: 0;
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+
+[popover]:is(:popover-open, .\:popover-open) {
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.wl-currency-popover {
+  min-inline-size: min(19rem, 90dvw);
+}
+
+.wl-conservation-popover {
+  inline-size: min(20rem, 88dvw);
+}
+
+@supports (anchor-name: --a) {
+  .wl-currency-trigger {
+    anchor-name: --currency-anchor;
+  }
+
+  .wl-currency-popover {
+    position-anchor: --currency-anchor;
+    inset: auto;
+    margin: 0.4rem 0 0;
+    position-area: block-end span-inline-start;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  }
+
+  .wl-conservation-trigger {
+    anchor-name: --conservation-anchor;
+  }
+
+  .wl-conservation-popover {
+    position-anchor: --conservation-anchor;
+    inset: auto;
+    margin: 0.4rem 0 0;
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  }
+}
+
+.wl-popover-heading {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+}
+
+.wl-currency-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.wl-currency-option {
+  inline-size: 100%;
+  min-block-size: 2.15rem;
+  padding: 0.4rem 0.6rem;
+  background: transparent;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-align: start;
+}
+
+.wl-currency-option:hover,
+.wl-currency-option.is-active {
+  background: var(--accent-gilt-soft);
+  border-color: var(--accent-gilt);
+}
+
+.wl-toggletip-popover {
+  font-family: var(--font-sans);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.wl-toggletip-popover strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  margin-block-end: 0.3rem;
+}
+
+.wl-toggletip-popover p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--ink-secondary);
+}
+
+/* Top-Layer Modal Dialogs: Slide-over Folio, G Pay Vault, & Certificate */
+.wl-folio-dialog,
+.wl-vault-dialog,
+.wl-cert-dialog {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-primary);
+  max-inline-size: none;
+  max-block-size: none;
+  opacity: 0;
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 0.28s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-behavior: allow-discrete;
+}
+
+.wl-folio-dialog::backdrop,
+.wl-vault-dialog::backdrop,
+.wl-cert-dialog::backdrop {
+  background-color: rgba(10, 10, 9, 0);
+  backdrop-filter: blur(0px);
+  transition-property: background-color, backdrop-filter, display, overlay;
+  transition-duration: 0.28s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+
+:is(.wl-folio-dialog[open], .wl-vault-dialog[open], .wl-cert-dialog[open]):where(:not([data-closing])) {
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+:is(.wl-folio-dialog[open], .wl-vault-dialog[open], .wl-cert-dialog[open]):where(:not([data-closing]))::backdrop {
+  background-color: rgba(10, 10, 9, 0.62);
+  backdrop-filter: blur(4px);
+
+  @starting-style {
+    background-color: rgba(10, 10, 9, 0);
+    backdrop-filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-folio-dialog,
+  .wl-vault-dialog,
+  .wl-cert-dialog,
+  [popover] {
+    transition-duration: 0.08s;
+  }
+}
+
+/* 1. Slide-Over Collector's Acquisition Folio */
+.wl-folio-dialog {
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100dvh;
+}
+
+.wl-folio-dialog[open] {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wl-folio-sheet {
+  inline-size: min(31rem, 100%);
+  block-size: 100dvh;
+  background: var(--bg-surface);
+  border-inline-start: 1px solid var(--hairline-strong);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow-x: clip;
+  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.28);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wl-folio-dialog .wl-folio-sheet {
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .wl-folio-dialog[open]:where(:not([data-closing])) .wl-folio-sheet {
+    transform: translateX(0);
+
+    @starting-style {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.wl-folio-header {
+  padding: 1.35rem 1.5rem;
+  border-block-end: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wl-folio-title {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.75rem;
+}
+
+.wl-dialog-close-btn {
+  min-inline-size: 2.25rem;
+  min-block-size: 2.25rem;
+  background: transparent;
+  border: 1px solid var(--hairline);
+  font-size: 0.9rem;
+}
+
+.wl-dialog-close-btn:hover {
+  border-color: var(--ink-primary);
+}
+
+.wl-folio-empty {
+  padding: 3rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.wl-folio-empty-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+}
+
+.wl-folio-empty-copy {
+  margin: 0;
+  color: var(--ink-secondary);
+  font-size: 0.92rem;
+}
+
+.wl-folio-items-scroll {
+  overflow-y: auto;
+  overflow-x: clip;
+  overscroll-behavior: contain;
+  padding: 1.25rem 1.25rem 2.25rem;
+}
+
+.wl-folio-item-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.wl-folio-item {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  gap: 0.9rem;
+  padding-block-end: 1rem;
+  border-block-end: 1px solid var(--hairline);
+}
+
+.wl-folio-item-body {
+  min-inline-size: 0;
+}
+
+.wl-folio-thumb {
+  inline-size: 4.6rem;
+  block-size: 5.4rem;
+  object-fit: cover;
+  border: 1px solid var(--hairline);
+}
+
+.wl-folio-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wl-folio-remove-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-decoration: underline;
+}
+
+.wl-folio-item-title {
+  margin: 0.2rem 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.22rem;
+}
+
+.wl-folio-item-dims {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--ink-muted);
+}
+
+.wl-folio-item-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.wl-folio-frame-switch {
+  display: inline-flex;
+  border: 1px solid var(--hairline);
+}
+
+.wl-folio-item-price {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-align: end;
+}
+
+.wl-private-alloc-tag {
+  display: block;
+  font-size: 0.58rem;
+  color: var(--accent-gilt);
+  font-weight: 400;
+}
+
+.wl-folio-addons {
+  padding: 1.1rem;
+  background: var(--bg-ground);
+  border: 1px solid var(--hairline);
+}
+
+.wl-folio-ledger {
+  margin: 0.75rem 0 1rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.wl-folio-ledger > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.84rem;
+}
+
+.wl-folio-ledger dt small {
+  display: block;
+  font-size: 0.71rem;
+  color: var(--ink-muted);
+}
+
+.wl-folio-ledger dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.wl-zero-fee {
+  color: var(--accent-gilt);
+  font-weight: 600;
+}
+
+.wl-courier-toggle-btn {
+  inline-size: 100%;
+  padding: 0.75rem 0.85rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--hairline-strong);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: start;
+}
+
+.wl-courier-toggle-btn strong {
+  display: block;
+  font-size: 0.8rem;
+}
+
+.wl-courier-toggle-btn span {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+.wl-courier-toggle-btn.is-selected {
+  border-color: var(--accent-gilt);
+  background: var(--accent-gilt-soft);
+}
+
+.wl-switch-pill {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--hairline-strong);
+  font-family: var(--font-mono);
+  font-size: 0.6rem !important;
+}
+
+.wl-folio-footer {
+  padding: 1.25rem 1.5rem;
+  border-block-start: 1px solid var(--hairline);
+  background: var(--bg-surface);
+}
+
+.wl-folio-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-block-end: 1rem;
+}
+
+.wl-patronage-hint {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--accent-gilt);
+}
+
+.wl-folio-grand-total {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.wl-folio-cta-group {
+  display: grid;
+  gap: 0.6rem;
+}
+
+/* 2. Simulated Google Pay / WL Studio Private Vault Sheet */
+.wl-vault-dialog {
+  margin: auto;
+  inline-size: min(29rem, calc(100% - 1.5rem));
+}
+
+.wl-vault-card {
+  background: #FFFFFF;
+  color: #1A1A19;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 16px;
+  overflow: clip;
+  box-shadow: 0 32px 72px rgba(0, 0, 0, 0.44);
+}
+
+.wl-vault-topbar {
+  padding: 1rem 1.25rem;
+  border-block-end: 1px solid rgba(0, 0, 0, 0.09);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FAF9F6;
+}
+
+.wl-vault-brand-lock {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.wl-vault-divider {
+  inline-size: 1px;
+  block-size: 16px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.wl-vault-tag {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: #5C5953;
+}
+
+.wl-vault-body {
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.wl-vault-merchant-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-block-end: 0.9rem;
+  border-block-end: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.wl-vault-mini-art {
+  inline-size: 3.3rem;
+  block-size: 3.8rem;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.wl-vault-merchant-name {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: #6B6760;
+}
+
+.wl-vault-lot-desc {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-editorial);
+  font-size: 1.12rem;
+  font-weight: 600;
+}
+
+.wl-vault-rows {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.wl-vault-selector-row {
+  inline-size: 100%;
+  padding: 0.8rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  background: #FBF9F5;
+  color: #1A1A19;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: start;
+}
+
+.wl-vault-selector-row:hover {
+  border-color: #9A7632;
+}
+
+.wl-vault-card-chip {
+  inline-size: 2.4rem;
+  block-size: 1.65rem;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #191918, #38352E);
+  color: #DFC080;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+}
+
+.wl-vault-icon-box {
+  inline-size: 2.4rem;
+  block-size: 1.85rem;
+  border-radius: 4px;
+  background: #EAE5DA;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+}
+
+.wl-vault-row-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.wl-vault-row-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: #6E6A63;
+}
+
+.wl-vault-row-text strong {
+  font-size: 0.86rem;
+}
+
+.wl-vault-row-text small {
+  font-size: 0.72rem;
+  color: #66625B;
+}
+
+.wl-vault-cycle-arrow {
+  font-size: 0.85rem;
+  color: #7A756D;
+}
+
+.wl-vault-total-box {
+  padding: 0.85rem 0.95rem;
+  border-radius: 10px;
+  background: #F3EFE7;
+}
+
+.wl-vault-total-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.9rem;
+}
+
+.wl-vault-grant-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.73rem;
+  color: #5E5A53;
+}
+
+.wl-vault-confirm-btn {
+  inline-size: 100%;
+  min-block-size: 3.2rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  border: 0;
+  background: #131314;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+}
+
+.wl-vault-confirm-btn:hover {
+  background: #272729;
+}
+
+.wl-vault-confirm-btn span:first-child {
+  font-weight: 600;
+  font-size: 0.96rem;
+}
+
+.wl-vault-confirm-sub {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: #D4B475;
+}
+
+/* Smooth Biometric Checkmark Animation */
+.wl-vault-biometric-stage {
+  padding: 3rem 1.75rem;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  gap: 0.85rem;
+}
+
+.wl-bio-track {
+  stroke: #E5E1D8;
+}
+
+.wl-bio-progress {
+  stroke: #1A73E8;
+  stroke-dasharray: 240;
+  stroke-dashoffset: 60;
+  transform-origin: 44px 44px;
+}
+
+.wl-biometric-ring.is-approved .wl-bio-progress {
+  stroke: #1E8E3E;
+  stroke-dashoffset: 0;
+  transition:
+    stroke-dashoffset 0.35s ease,
+    stroke 0.25s ease;
+}
+
+.wl-bio-check {
+  stroke: #1E8E3E;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes wl-spin-ring {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes wl-draw-check {
+    from {
+      stroke-dashoffset: 60;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .wl-biometric-ring.is-verifying .wl-bio-progress {
+    animation: wl-spin-ring 0.85s linear infinite;
+  }
+
+  .wl-bio-check {
+    animation: wl-draw-check 0.36s ease-out forwards;
+  }
+}
+
+.wl-bio-status-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+}
+
+.wl-bio-status-sub {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #6B6760;
+}
+
+/* 3. Official Certificate of Acquisition & Provenance */
+.wl-cert-dialog {
+  margin: auto;
+  inline-size: min(56rem, calc(100% - 1.5rem));
+  max-block-size: 92dvh;
+}
+
+.wl-certificate-sheet {
+  background: #F8F5EE;
+  color: #141413;
+  border: 1px solid #2A2926;
+  max-block-size: 92dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 36px 90px rgba(0, 0, 0, 0.55);
+}
+
+.wl-cert-toolbar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 5;
+  padding: 0.85rem 1.25rem;
+  background: rgba(248, 245, 238, 0.94);
+  backdrop-filter: blur(8px);
+  border-block-end: 1px solid rgba(20, 20, 19, 0.14);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.72rem;
+}
+
+.wl-cert-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: 0.5rem;
+}
+
+.wl-certificate-document {
+  padding: clamp(1rem, 3vw, 2.25rem);
+}
+
+.wl-cert-inner-frame {
+  padding: clamp(1.25rem, 3.5vw, 2.75rem);
+  border: 2px solid #181715;
+  outline: 1px solid #B08B46;
+  outline-offset: -8px;
+  background: #FCFBF7;
+}
+
+.wl-cert-header {
+  text-align: center;
+  padding-block-end: 1.5rem;
+  border-block-end: 1px solid rgba(20, 20, 19, 0.15);
+}
+
+.wl-cert-kicker {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: #6B665D;
+}
+
+.wl-cert-title {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.85rem, 1.4rem + 1.8vw, 3rem);
+  line-height: 1.05;
+}
+
+.wl-cert-edition-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  font-size: 0.72rem;
+}
+
+.wl-cert-works-grid {
+  padding-block: 1.5rem;
+  display: grid;
+  gap: 1.15rem;
+  border-block-end: 1px solid rgba(20, 20, 19, 0.15);
+}
+
+.wl-cert-work-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1.15rem;
+  align-items: center;
+}
+
+.wl-cert-plate-img {
+  inline-size: 5.5rem;
+  block-size: 6.5rem;
+  object-fit: cover;
+  border: 1px solid rgba(20, 20, 19, 0.22);
+}
+
+.wl-cert-work-meta h2 {
+  margin: 0.2rem 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+
+.wl-cert-work-meta p {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: #46433E;
+}
+
+.wl-cert-waiver-decree {
+  margin-block: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  background: #F2EFE6;
+  border: 1px solid #B08B46;
+}
+
+.wl-waiver-decree-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block-end: 0.65rem;
+}
+
+.wl-waiver-badge {
+  padding: 0.2rem 0.55rem;
+  background: #181715;
+  color: #F7F4EC;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+
+.wl-cert-waiver-decree p {
+  margin: 0;
+  font-family: var(--font-editorial);
+  font-size: 1.12rem;
+  line-height: 1.52;
+  color: #242320;
+}
+
+.wl-cert-ledger-summary {
+  margin: 0 0 1.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding-block-end: 1.25rem;
+  border-block-end: 1px solid rgba(20, 20, 19, 0.14);
+}
+
+.wl-cert-ledger-summary dt {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: #6E6960;
+  margin-block-end: 0.25rem;
+}
+
+.wl-cert-ledger-summary dd {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.wl-cert-signatures {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 1.5rem;
+}
+
+.wl-cert-sig-col.is-right {
+  text-align: end;
+}
+
+.wl-registrar-script {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.75rem;
+  color: #22211F;
+}
+
+.wl-sig-caption {
+  display: block;
+  padding-block-start: 0.4rem;
+  border-block-start: 1px solid rgba(20, 20, 19, 0.24);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: #6B665D;
+}
+
+@media (max-width: 760px) {
+  .wl-cert-ledger-summary,
+  .wl-cert-signatures {
+    grid-template-columns: 1fr;
+    text-align: start;
+  }
+  .wl-cert-sig-col.is-right {
+    text-align: start;
+  }
+}
+
+/* ==========================================================================
+   ARCHITECTURAL COLOPHON FOOTER
+   ========================================================================== */
+
+.wl-footer {
+  margin-block-start: 2rem;
+  border-block-start: 1px solid var(--hairline);
+  background: var(--bg-surface);
+}
+
+.wl-footer-inner {
+  max-inline-size: var(--max-shell);
+  margin-inline: auto;
+  padding: 3.5rem clamp(1rem, 3vw, 2.75rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr) auto;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.wl-footer-statement {
+  margin: 1rem 0 0.75rem;
+  max-inline-size: 42ch;
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+}
+
+.wl-footer-hours {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-gilt);
+}
+
+.wl-footer-salons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.wl-footer-salons h2 {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-primary);
+}
+
+.wl-footer-salons p {
+  margin: 0 0 0.2rem;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+}
+
+.wl-footer-nav-col {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.wl-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.wl-footer-links button {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: start;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+}
+
+.wl-footer-links button:hover {
+  color: var(--accent-gilt);
+}
+
+.wl-footer-colophon {
+  max-inline-size: var(--max-shell);
+  margin-inline: auto;
+  padding: 1.15rem clamp(1rem, 3vw, 2.75rem);
+  border-block-start: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+}
+
+@media (max-width: 960px) {
+  .wl-footer-inner,
+  .wl-footer-salons {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   PRINTABLE ARCHIVAL CERTIFICATE STYLESHEET (@media print)
+   ========================================================================== */
+
+@media print {
+  .wl-header,
+  .wl-main,
+  .wl-footer,
+  .wl-custom-cursor,
+  .wl-folio-dialog,
+  .wl-vault-dialog,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #FFFFFF !important;
+  }
+
+  .wl-cert-dialog {
+    position: static !important;
+    inline-size: 100% !important;
+    max-block-size: none !important;
+    opacity: 1 !important;
+  }
+
+  .wl-certificate-sheet {
+    max-block-size: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+}

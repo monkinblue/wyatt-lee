@@ -1,0 +1,614 @@
+[
+  {
+    "id": "wl-lot-01",
+    "index": 1,
+    "lotNumber": "LOT 01",
+    "catalogueNo": "WL.2025.10.I",
+    "title": "Nachmittagsschlaf Nr. 9 (Apotheosis in Ultramarine, Viridian, and Fugitive Cadmium)",
+    "shortTitle": "Nachmittagsschlaf Nr. 9",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2025",
+    "series": "Late Bedroom Annex Cycle",
+    "dimensionsCm": "182.9 × 146.0 cm",
+    "dimensionsIn": "72 × 57 ½ in.",
+    "scaleCategory": "monumental",
+    "frameTone": "obsidian",
+    "isDiptych": false,
+    "inquiryOnly": true,
+    "priceUsd": 2400000,
+    "estimateRange": "Price Upon Private Inquiry",
+    "medium": "Heavy-body washable polymer emulsion, high-viscosity cobalt and viridian pour, cadmium-yellow impasto, and hand-crushed imitation gilt leaf on stretched cotton duck",
+    "condition": "Prime studio state. Pronounced sculptural impasto peaks up to 6 mm in lower-right yellow quadrant; scattered gilt-leaf inclusions embedded wet-into-wet at upper register; trace herringbone textile fiber confined strictly to verso tacking margin.",
+    "provenance": [
+      "Executed directly atop striped domestic ground-cloth, Primary Bedroom Annex, October 2025",
+      "Retained in the Artist's Private Reserve prior to scheduled afternoon rest",
+      "Atelier W.L. Permanent Custodial Vault"
+    ],
+    "exhibited": [
+      "Atelier W.L., Before the Dimming of the Hallway Light: Late Works 2024–2025, Private Viewing Salon, 2026, pl. I (illustrated on monograph cover)"
+    ],
+    "essay": "Conceived during the decisive October 2025 sessions, Nachmittagsschlaf Nr. 9 stands as the summation of W.L.'s polychromatic maximalism. Across its commanding vertical field, a brooding upper stratum of dioxazine violet and heavy cobalt polymer collides against a torrential viridian channel descending the left flank, while an insurgent mass of unmixed cadmium yellow rises at lower right like an architectural refusal of twilight. Scattered constellations of crushed gilt leaf arrest the eye at the upper meridian, suspending the composition between baroque opulence and raw, pre-linguistic physical urgency.",
+    "macroCaption": "Raking-light detail (upper register): hand-crushed imitation gilt leaf embedded wet-into-wet across cobalt and royal-violet impasto ridges.",
+    "images": {
+      "full": "/artworks/wl-lot-01-full.webp",
+      "card": "/artworks/wl-lot-01-card.webp",
+      "macro": "/artworks/wl-lot-01-macro.webp",
+      "width": 1760,
+      "height": 2200,
+      "cardWidth": 880,
+      "cardHeight": 1100,
+      "aspectRatio": 0.8
+    },
+    "palette": [
+      "#1B4161",
+      "#526D9B",
+      "#929DD2",
+      "#B9AE75"
+    ]
+  },
+  {
+    "id": "wl-lot-02",
+    "index": 2,
+    "lotNumber": "LOT 02",
+    "catalogueNo": "WL.2024.09.II",
+    "title": "Anthropométrie Silencieuse (Vestige After Bath Hour)",
+    "shortTitle": "Anthropométrie Silencieuse",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Somatic Index Works",
+    "dimensionsCm": "152.4 × 152.4 cm",
+    "dimensionsIn": "60 × 60 in.",
+    "scaleCategory": "large",
+    "frameTone": "walnut",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 1650000,
+    "estimateRange": "$1,400,000 – $1,800,000",
+    "medium": "High-gloss lampblack acrylic polymer, metallic bronze drag, diluted grey mist, and unmediated plantar somatic impression on primed square cotton",
+    "condition": "Exceptional archival stability. High-gloss obsidian pool exhibits mirror-like specular tension with minor curing ridges at perimeter; spectral bare-heel impression at upper-center gesso verified authentic by Atelier registrars.",
+    "provenance": [
+      "Floor Studio (Porcelain Wood-Plank Sector), Residence Collection, September 2024",
+      "Acquired directly from the Artist immediately prior to evening sock enforcement"
+    ],
+    "exhibited": [
+      "Gagosian / Atelier W.L. Joint Curatorial Dossier, Radical Gesture & Somatic Weight, 2025, cat. no. 4"
+    ],
+    "essay": "At once a meditation on void and bodily weight, Anthropométrie Silencieuse recalls the monumental black forms of Robert Motherwell and the radical Gutai foot-paintings of Kazuo Shiraga. Anchored to the right of an austere square expanse of chalk-white gesso, a monolithic reservoir of mirror-gloss lampblack absorbs ambient gallery light, countered to its left by a single, ferocious lateral thrust of bronze-veined umber. Hovering just above this collision sits a ghostly, near-imperceptible bare-foot compression in raw pigment—an unrepeatable indexical trace of the Artist traversing the picture plane.",
+    "macroCaption": "Surface detail (central threshold): junction of mirror-gloss lampblack reservoir, dragged bronze-carbon paste, and spectral somatic impression in upper gesso.",
+    "images": {
+      "full": "/artworks/wl-lot-02-full.webp",
+      "card": "/artworks/wl-lot-02-card.webp",
+      "macro": "/artworks/wl-lot-02-macro.webp",
+      "width": 2200,
+      "height": 2200,
+      "cardWidth": 1100,
+      "cardHeight": 1100,
+      "aspectRatio": 1.0
+    },
+    "palette": [
+      "#E2F6FD",
+      "#BED2E1",
+      "#0F0B09",
+      "#6D665F"
+    ]
+  },
+  {
+    "id": "wl-lot-03",
+    "index": 3,
+    "lotNumber": "LOT 03",
+    "catalogueNo": "WL.2024.07.III",
+    "title": "Rex Aurum (Solaris Above the Toggle Switch)",
+    "shortTitle": "Rex Aurum",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Alchemical Corridor Studies",
+    "dimensionsCm": "167.6 × 134.6 cm",
+    "dimensionsIn": "66 × 53 in.",
+    "scaleCategory": "monumental",
+    "frameTone": "obsidian",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 1280000,
+    "estimateRange": "$1,100,000 – $1,500,000",
+    "medium": "Metallic aureolin emulsion, raw umber under-wash, titanium marbling, and densely accreted composite gold leaf on stretched canvas",
+    "condition": "Luminous surface integrity. Dense chryséléphantine leaf agglomeration across lower-central nexus remains firmly bound within polymer matrix; two micro-droplets of oat-milk medium stabilized under conservation varnish.",
+    "provenance": [
+      "Installed site-specifically 14 cm above corridor wall-switch, East Hallway Wing, July 2024",
+      "Private Family Patronage Trust"
+    ],
+    "exhibited": [
+      "Kunsthalle Private Viewing, Gold & Gravity: Post-Millennial Materiality, Zurich, 2025, p. 42"
+    ],
+    "essay": "Evoking both Byzantine reliquary surfaces and Anselm Kiefer's alchemical transmutations of base matter, Rex Aurum commands light with theatrical authority. W.L. lays down a skeletal architecture of raw sienna and umber brush sweeps before unleashing a diagonal torrent of liquid gold polymer across the upper right register. At the work's gravitational core, sheets of crumpled metallic leaf fracture gallery spotlights into hundreds of shifting micro-facets, transforming domestic corridor wall-space into a secular sanctuary.",
+    "macroCaption": "Conservation macro (lower-central nexus): densely accreted composite gold leaf encrusted over raw umber wash and marbled titanium white.",
+    "images": {
+      "full": "/artworks/wl-lot-03-full.webp",
+      "card": "/artworks/wl-lot-03-card.webp",
+      "macro": "/artworks/wl-lot-03-macro.webp",
+      "width": 1760,
+      "height": 2200,
+      "cardWidth": 880,
+      "cardHeight": 1100,
+      "aspectRatio": 0.8
+    },
+    "palette": [
+      "#ADAAAA",
+      "#916435",
+      "#BB905C",
+      "#643816"
+    ]
+  },
+  {
+    "id": "wl-lot-04",
+    "index": 4,
+    "lotNumber": "LOT 04",
+    "catalogueNo": "WL.2025.07.IV",
+    "title": "Étude Maritime en Deux Mouvements (Dialogue Across Drywall)",
+    "shortTitle": "Étude Maritime (Diptych)",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2025",
+    "series": "Bipartite Architectural Works",
+    "dimensionsCm": "121.9 × 198.1 cm",
+    "dimensionsIn": "48 × 78 in. (diptych)",
+    "scaleCategory": "monumental",
+    "frameTone": "walnut",
+    "isDiptych": true,
+    "inquiryOnly": false,
+    "priceUsd": 1150000,
+    "estimateRange": "$950,000 – $1,350,000",
+    "medium": "Phthalo cerulean, Prussian blue, and oxidised teal polymer over warm terracotta-blush ground across two conjoined canvases",
+    "condition": "Complete in two parts as conceived. Left panel exhibits viscous wet-on-wet pooling along lower tacking edge; right panel retains deliberate passages of exposed blush underpainting and upper-right gesso reserve.",
+    "provenance": [
+      "Prepared en plein air (see preparatory ground study WL.2025.05.XIII), May–July 2025",
+      "Salon Principal, Upper Stairwell Landing, Private Collection"
+    ],
+    "exhibited": [
+      "Atelier W.L., Dualities and Interruptions, Autumn Monograph Presentation, 2025, pl. IV–V"
+    ],
+    "essay": "Rare among W.L.'s output for its sustained multi-month gestation, Étude Maritime en Deux Mouvements pairs two vertical canvases across a calibrated architectural interval. Over a warm, hand-brushed terracotta ground laid down earlier that spring, the Artist unleashes surging pelagic masses of Prussian blue and oxidized teal. Where the left panel consolidates into a dense, abyssal vortex, the right panel opens outward in broad, sweeping arcs that allow flashes of warm sienna earth and raw white gesso to breathe at the margins.",
+    "macroCaption": "Panel I detail: tempestuous phthalo cerulean and Prussian blue polymer folding over exposed terracotta-blush ground.",
+    "images": {
+      "full": "/artworks/wl-lot-04-full.webp",
+      "card": "/artworks/wl-lot-04-card.webp",
+      "macro": "/artworks/wl-lot-04-macro.webp",
+      "width": 3091,
+      "height": 1916,
+      "cardWidth": 1100,
+      "cardHeight": 682,
+      "aspectRatio": 1.6133
+    },
+    "palette": [
+      "#144E6B",
+      "#326F8C",
+      "#EBE8E2",
+      "#AA9588"
+    ]
+  },
+  {
+    "id": "wl-lot-05",
+    "index": 5,
+    "lotNumber": "LOT 05",
+    "catalogueNo": "WL.2024.09.V",
+    "title": "Chambre d'Ambre et d'Argent (After the Folding Table Sessions)",
+    "shortTitle": "Chambre d'Ambre et d'Argent",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Plein-Air Trestle Works",
+    "dimensionsCm": "152.4 × 121.9 cm",
+    "dimensionsIn": "60 × 48 in.",
+    "scaleCategory": "large",
+    "frameTone": "aluminum",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 890000,
+    "estimateRange": "$800,000 – $1,100,000",
+    "medium": "Nacreous pearl polymer, Venetian rose-earth fluid marbling, liquid pewter drips, and high-relief bimetallic foil leaf on stretched cotton",
+    "condition": "Superb relief preservation. Left-flank foil reef projects 4.5 mm above the marbled lamina; gravitational pewter rivulets at lower right cured under direct late-summer solar exposure.",
+    "provenance": [
+      "Plein-Air Trestle Studio, Rear Courtyard, September 2024",
+      "Private Collection, Mid-Atlantic Estates"
+    ],
+    "exhibited": [
+      "Salon d'Automne Privé, Mineral Abstraction Now, Geneva, 2025, cat. no. 11"
+    ],
+    "essay": "Recalling Renaissance scagliola stonework and geological core samples, Chambre d'Ambre et d'Argent orchestrates a hypnotic fluid dialogue between rose-ochre, pearl white, and molten gold. Along the left margin, a jagged, high-relief reef of gold and darkened pewter leaf interrupts the laminar flow like an emerging landmass, while rapid silver-grey rivulets race off the lower-right corner in a masterclass of controlled hydrodynamic tension.",
+    "macroCaption": "Raking-light detail (western reef): high-relief bimetallic foil leaf accretions resting atop Venetian rose-quartz and pearl marbling.",
+    "images": {
+      "full": "/artworks/wl-lot-05-full.webp",
+      "card": "/artworks/wl-lot-05-card.webp",
+      "macro": "/artworks/wl-lot-05-macro.webp",
+      "width": 1760,
+      "height": 2200,
+      "cardWidth": 880,
+      "cardHeight": 1100,
+      "aspectRatio": 0.8
+    },
+    "palette": [
+      "#B5A39E",
+      "#CAC6CB",
+      "#987966",
+      "#70482D"
+    ]
+  },
+  {
+    "id": "wl-lot-06",
+    "index": 6,
+    "lotNumber": "LOT 06",
+    "catalogueNo": "WL.2024.08.VI",
+    "title": "Stèle Verticale No. 2 (Cataract with Ochre Interruption)",
+    "shortTitle": "Stèle Verticale No. 2",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Vulcanized Mat Monoliths",
+    "dimensionsCm": "213.4 × 106.7 cm",
+    "dimensionsIn": "84 × 42 in.",
+    "scaleCategory": "monumental",
+    "frameTone": "aluminum",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 740000,
+    "estimateRange": "$650,000 – $850,000",
+    "medium": "Prussian blue, glacial turquoise, and metallic yellow-ochre acrylic emulsion on elongated 2:1 vertical canvas",
+    "condition": "Uncompromised tension. Executed horizontally atop interlocking vulcanized EVA gymnasium tiles prior to vertical orientation; yellow modeling-compound cylinder documented nearby left zero residue on recto.",
+    "provenance": [
+      "Vulcanized Rubber Mat Atelier, Lower Level, August 2024",
+      "Private Collection, Washington Metropolitan Area"
+    ],
+    "exhibited": [
+      "Atelier W.L., Verticality & Velocity, Winter Viewing Room, 2025, pl. VI"
+    ],
+    "essay": "Constructed on an austere 2:1 double-square vertical proportion, Stèle Verticale No. 2 channels the sublimity of Alpine meltwater and Barnett Newman's zip paintings. From an airy, asymmetrical crown of raw white gesso at upper left, swirling currents of Prussian blue and glacial cyan plunge toward the lower edge, dramatically pierced along the upper-right flank by a brazen vertical lance of luminous yellow ochre.",
+    "macroCaption": "Detail (upper-right slash): molten yellow-ochre metallic pour cutting vertically across deep Prussian blue brushwork.",
+    "images": {
+      "full": "/artworks/wl-lot-06-full.webp",
+      "card": "/artworks/wl-lot-06-card.webp",
+      "macro": "/artworks/wl-lot-06-macro.webp",
+      "width": 1100,
+      "height": 2200,
+      "cardWidth": 550,
+      "cardHeight": 1100,
+      "aspectRatio": 0.5
+    },
+    "palette": [
+      "#37A3C9",
+      "#105C82",
+      "#D9DDD8",
+      "#BF8D3A"
+    ]
+  },
+  {
+    "id": "wl-lot-07",
+    "index": 7,
+    "lotNumber": "LOT 07",
+    "catalogueNo": "WL.2024.06.VII",
+    "title": "Fissure Silencieuse (Rift in Dioxazine, Rose, and Argent)",
+    "shortTitle": "Fissure Silencieuse",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Tectonic Rift Paintings",
+    "dimensionsCm": "121.9 × 152.4 cm",
+    "dimensionsIn": "48 × 60 in.",
+    "scaleCategory": "large",
+    "frameTone": "aluminum",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 620000,
+    "estimateRange": "$550,000 – $750,000",
+    "medium": "Fluid cerulean, dioxazine violet, and quinacridone magenta acrylic with hand-scattered aluminum foil fragments and linear drag incisions on gessoed canvas",
+    "condition": "Stable throughout. Deliberate tactile finger-furrow scoring across lower-right white rift; prominent three-dimensional crumpled aluminum inclusion at lower right securely adhered.",
+    "provenance": [
+      "Executed atop upholstered incline bench, Domestic Conditioning Room, June 2024",
+      "Collection of the Patron"
+    ],
+    "exhibited": [
+      "Fondation Privée, Negative Space in Contemporary Pour Painting, Paris, 2025, p. 19"
+    ],
+    "essay": "With an audacity reminiscent of Morris Louis's Unfurleds, W.L. cleaves the picture plane of Fissure Silencieuse along a razor-sharp diagonal canyon of bare gesso. Flanking this luminous void, two chromatic tectonic plates—saturated dioxazine violet to the northeast and cellular cerulean-magenta to the southwest—press inward without touching, linked only by a meteor shower of crumpled silver foil and three delicate tactile incisions dragged through wet medium at lower right.",
+    "macroCaption": "Macro detail (central fault): silver foil fragments bridging cobalt-violet cellular marbling and the incised white diagonal channel.",
+    "images": {
+      "full": "/artworks/wl-lot-07-full.webp",
+      "card": "/artworks/wl-lot-07-card.webp",
+      "macro": "/artworks/wl-lot-07-macro.webp",
+      "width": 2200,
+      "height": 1760,
+      "cardWidth": 1100,
+      "cardHeight": 880,
+      "aspectRatio": 1.25
+    },
+    "palette": [
+      "#7894CF",
+      "#D8D7CB",
+      "#5B52A9",
+      "#BD3D75"
+    ]
+  },
+  {
+    "id": "wl-lot-08",
+    "index": 8,
+    "lotNumber": "LOT 08",
+    "catalogueNo": "WL.2024.06.VIII",
+    "title": "Nigredo et Cuivre (Nocturne Under Garden Sun)",
+    "shortTitle": "Nigredo et Cuivre",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Plein-Air Trestle Works",
+    "dimensionsCm": "114.3 × 137.2 cm",
+    "dimensionsIn": "45 × 54 in.",
+    "scaleCategory": "medium",
+    "frameTone": "obsidian",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 540000,
+    "estimateRange": "$480,000 – $650,000",
+    "medium": "Carbon-black dry-brush, pearlescent carmine, oxidized copper-bronze, phthalo green, and dove-grey fluid acrylic on stretched cotton",
+    "condition": "Excellent. Characteristic cellular cratering within carmine lower-left passage; singular satellite black tondo at upper-left retains full perimeter meniscus.",
+    "provenance": [
+      "Plein-Air Trestle Studio (Adjacent to Rosa Rugosa Hedge), June 2024",
+      "Private Collection"
+    ],
+    "exhibited": [
+      "Atelier W.L., Summer Solstice Works, Private Monograph, 2024, cat. no. 2"
+    ],
+    "essay": "Executed under fierce June sunlight, Nigredo et Cuivre stages an extraordinary collision of painting vocabularies within a single frame. On the left, a rasping horizontal beam of dry-brushed carbon black—beneath which a solitary obsidian disc floats like an eclipse—rams directly into a molten caldera of titanium white, metallic carmine, dove grey, and patinated bronze-teal. Few contemporary abstractions balance graphic brutality and liquid sensuality on such a knife-edge.",
+    "macroCaption": "Surface detail: obsidian pool enveloped by titanium white, carmine cellular lacework, and oxidized copper-phthalo folds.",
+    "images": {
+      "full": "/artworks/wl-lot-08-full.webp",
+      "card": "/artworks/wl-lot-08-card.webp",
+      "macro": "/artworks/wl-lot-08-macro.webp",
+      "width": 2200,
+      "height": 1833,
+      "cardWidth": 1100,
+      "cardHeight": 916,
+      "aspectRatio": 1.2002
+    },
+    "palette": [
+      "#EEF3F7",
+      "#1C2631",
+      "#9EA5B4",
+      "#8E5251"
+    ]
+  },
+  {
+    "id": "wl-lot-09",
+    "index": 9,
+    "lotNumber": "LOT 09",
+    "catalogueNo": "WL.2024.07.IX",
+    "title": "Composition Après le Goûter (Study in Kinetic Viridian and Cyan)",
+    "shortTitle": "Composition Après le Goûter",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Peninsula Action Studies",
+    "dimensionsCm": "121.9 × 152.4 cm",
+    "dimensionsIn": "48 × 60 in.",
+    "scaleCategory": "large",
+    "frameTone": "walnut",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 465000,
+    "estimateRange": "$400,000 – $550,000",
+    "medium": "Washable turquoise, phthalo cyan, and sky-blue fluid tempera-acrylic hybrid on stretched cotton canvas",
+    "condition": "Pristine recto. Ballistic drip trajectories along lower-left quadrant fully cured prior to counter clearance; zero domestic citrus-mist or paper-towel fiber contact despite close proximity during execution.",
+    "provenance": [
+      "Private Collection, Granite Kitchen Peninsula, Northern Virginia, July 2024",
+      "Acquired directly from the Studio Countertop"
+    ],
+    "exhibited": [
+      "Contemporary Evening Preview, Domestic Topographies of the Avant-Garde, New York, 2025, lot 9"
+    ],
+    "essay": "Conceived at precarious oblique equilibrium across a polished granite peninsula between afternoon snack and supper preparation, Composition Après le Goûter is pure hydro-calligraphic velocity. Deep viridian lariats whip across the stark white left field before coalescing into a marbled turquoise torrent that settles into a serene, sky-blue pelvis at lower right—a single continuous breath of chromatic release.",
+    "macroCaption": "Detail (central current): turbulent turquoise and phthalo cyan ribbons transitioning from calligraphic whiplash loops into calm cerulean pooling.",
+    "images": {
+      "full": "/artworks/wl-lot-09-full.webp",
+      "card": "/artworks/wl-lot-09-card.webp",
+      "macro": "/artworks/wl-lot-09-macro.webp",
+      "width": 2200,
+      "height": 1760,
+      "cardWidth": 1100,
+      "cardHeight": 880,
+      "aspectRatio": 1.25
+    },
+    "palette": [
+      "#11AFE0",
+      "#B8C8D4",
+      "#127D97",
+      "#58D0F2"
+    ]
+  },
+  {
+    "id": "wl-lot-10",
+    "index": 10,
+    "lotNumber": "LOT 10",
+    "catalogueNo": "WL.2024.08.X",
+    "title": "Trajectoire Nocturne (Orbital Study on Obsidian Ground)",
+    "shortTitle": "Trajectoire Nocturne",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Nocturnal Field Works",
+    "dimensionsCm": "91.4 × 198.1 cm",
+    "dimensionsIn": "36 × 78 in.",
+    "scaleCategory": "large",
+    "frameTone": "aluminum",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 385000,
+    "estimateRange": "$320,000 – $450,000",
+    "medium": "Phthalo cobalt pour and warm Naples-peach ballistic filament drips on matte carbon-primed panoramic board",
+    "condition": "Very fine. Matte charcoal ground exhibits velvety light absorption; high-velocity peach arcs retain feathered micro-spatter along centrifugal vectors; trace turf clippings removed from verso by studio registrars.",
+    "provenance": [
+      "Executed en plein air, South Lawn Sector, August 2024",
+      "Private Collection"
+    ],
+    "exhibited": [
+      "Atelier W.L., Action & Orbit, Private Salon, 2025, pl. X"
+    ],
+    "essay": "Working for the sole documented occasion on a dead-matte charcoal ground, W.L. inverts the luminosity mechanics of the studio's white-primed corpus. Across a dramatic cinematic frieze, an electric cobalt nebula anchors the center while sweeping, Keplerian orbits of warm Naples-peach arc from edge to edge with unmistakable ballistic confidence—recalling Hans Hartung and Jackson Pollock's black enamel paintings reimagined under open summer sky.",
+    "macroCaption": "Detail (orbital nexus): high-velocity Naples-peach filaments intersecting electric cobalt polymer over matte carbon ground.",
+    "images": {
+      "full": "/artworks/wl-lot-10-full.webp",
+      "card": "/artworks/wl-lot-10-card.webp",
+      "macro": "/artworks/wl-lot-10-macro.webp",
+      "width": 2200,
+      "height": 1023,
+      "cardWidth": 1100,
+      "cardHeight": 512,
+      "aspectRatio": 2.1505
+    },
+    "palette": [
+      "#656975",
+      "#148CD6",
+      "#EFD4B9",
+      "#95B1BD"
+    ]
+  },
+  {
+    "id": "wl-lot-11",
+    "index": 11,
+    "lotNumber": "LOT 11",
+    "catalogueNo": "WL.2024.11.XI",
+    "title": "Veritas Manuum (Vernal Vortex with Twin Autographic Impressions)",
+    "shortTitle": "Veritas Manuum",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Somatic Index Works",
+    "dimensionsCm": "137.2 × 182.9 cm",
+    "dimensionsIn": "54 × 72 in.",
+    "scaleCategory": "large",
+    "frameTone": "walnut",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 290000,
+    "estimateRange": "$250,000 – $350,000",
+    "medium": "Chartreuse, sap-green, cadmium-yellow, and apricot washable polymer with direct bimanual studio impressions on primed canvas",
+    "condition": "Authenticated autographic surface. Twin right-register palm registrations (9.4 cm span) serve as primary biometric benchmark of the Artist's 2024 corpus; minor apple-juice craquelure lower quadrant professionally stabilized.",
+    "provenance": [
+      "Crushed-Aggregate Courtyard Studio, November 2024",
+      "Retained by the Custodial Estate Trust"
+    ],
+    "exhibited": [
+      "Museum of Contemporary Patronage (Proposed Loan), Index and Impulse, 2026"
+    ],
+    "essay": "Joyously combative and unapologetically physical, Veritas Manuum pairs a roaring upper canopy of rotary chartreuse comb-swirls with explosive, sun-like rays of burnt orange and cadmium yellow firing upward from the lower margin. To the right, two crisp sap-green palm impressions—each measuring barely nine centimeters across—anchor the composition in deep art-historical time, bridging Paleolithic stencil parity with Cy Twombly's Bacchic exuberance.",
+    "macroCaption": "Autographic detail (eastern register): twin diminutive palm impressions in sap-green emulsion beside radial burnt-orange splatter vectors.",
+    "images": {
+      "full": "/artworks/wl-lot-11-full.webp",
+      "card": "/artworks/wl-lot-11-card.webp",
+      "macro": "/artworks/wl-lot-11-macro.webp",
+      "width": 2200,
+      "height": 1650,
+      "cardWidth": 1100,
+      "cardHeight": 825,
+      "aspectRatio": 1.3333
+    },
+    "palette": [
+      "#ADB5BE",
+      "#577A0C",
+      "#988E17",
+      "#B1985E"
+    ]
+  },
+  {
+    "id": "wl-lot-12",
+    "index": 12,
+    "lotNumber": "LOT 12",
+    "catalogueNo": "WL.2024.12.XII",
+    "title": "Pluie d'Or Pâle (Winter Solstice Constellation)",
+    "shortTitle": "Pluie d'Or Pâle",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2024",
+    "series": "Alchemical Corridor Studies",
+    "dimensionsCm": "152.4 × 121.9 cm",
+    "dimensionsIn": "60 × 48 in.",
+    "scaleCategory": "medium",
+    "frameTone": "aluminum",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 145000,
+    "estimateRange": "$120,000 – $180,000",
+    "medium": "Iridescent champagne-gold, nacreous silver, and burnished copper polymer suspension slung on titanium-primed duck",
+    "condition": "Mint archival condition. High-relief droplet menisci remain crisp and unflattened; subtle warm patina across pale gold central artery.",
+    "provenance": [
+      "Winter Floor Atelier, December 2024",
+      "Acquired privately prior to holiday recess"
+    ],
+    "exhibited": [
+      "Atelier W.L., Chamber Works in Silver & Gilt, Winter Salon, 2025, cat. no. 8"
+    ],
+    "essay": "Restrained in palette yet ecstatic in trajectory, Pluie d'Or Pâle distills W.L.'s action technique to pure metallic lyricism. A single overarching spine of pale champagne gold and liquid pearl arcs downward through a storm of copper micro-droplets, leaving the right flank sparsely punctuated like a star chart—an intimate, luminous winter nocturne painted in reflected light.",
+    "macroCaption": "Detail (central artery): high-meniscus champagne-gold and pearl-silver polymer ribbons interlaced with staccato copper droplets.",
+    "images": {
+      "full": "/artworks/wl-lot-12-full.webp",
+      "card": "/artworks/wl-lot-12-card.webp",
+      "macro": "/artworks/wl-lot-12-macro.webp",
+      "width": 1760,
+      "height": 2200,
+      "cardWidth": 880,
+      "cardHeight": 1100,
+      "aspectRatio": 0.8
+    },
+    "palette": [
+      "#D5D3D4",
+      "#E9E9EB",
+      "#C2B2A2",
+      "#B38D60"
+    ]
+  },
+  {
+    "id": "wl-lot-13",
+    "index": 13,
+    "lotNumber": "LOT 13",
+    "catalogueNo": "WL.2025.05.XIII",
+    "title": "Tabula Rasa en Terre Cuite (Ground State Before Quiet Time)",
+    "shortTitle": "Tabula Rasa en Terre Cuite",
+    "artist": "W.L.",
+    "atelier": "Atelier W.L. (b. 2022)",
+    "year": "2025",
+    "series": "Radical Monochrome Studies",
+    "dimensionsCm": "76.2 × 101.6 cm",
+    "dimensionsIn": "30 × 40 in.",
+    "scaleCategory": "intimate",
+    "frameTone": "walnut",
+    "isDiptych": false,
+    "inquiryOnly": false,
+    "priceUsd": 48000,
+    "estimateRange": "$42,000 – $60,000",
+    "medium": "Raw sienna and blush-terracotta tempera emulsion applied with 75 mm industrial house-painter's bristle brush on primed cotton",
+    "condition": "Unvarnished matte surface as intended. Pronounced parallel bristle striations remain crisp across interlocking diagonal passes; faint raw-gesso breathing aperture preserved at upper periphery.",
+    "provenance": [
+      "Executed en plein air, May 2025",
+      "Documented preparatory ground study relating to the 2025 Maritime Diptych"
+    ],
+    "exhibited": [
+      "Atelier W.L., Zero Degree of the Brush: Studies & Grounds, 2025, cat. no. 1"
+    ],
+    "essay": "In dialogue with Robert Ryman and Marcia Hafif's Radical Painting manifesto, Tabula Rasa en Terre Cuite elevates the foundational studio labor of laying a warm earth ground into a self-sufficient minimalist statement. Wielding an oversized 75-millimeter utility brush with disarming architectural discipline, W.L. weaves sweeping, cross-hatched furrows of warm blush-terracotta that record every variation of wrist pressure prior to quiet time.",
+    "macroCaption": "Raking-light detail: interlocking 75 mm industrial bristle furrows in unvarnished raw-sienna and blush-terracotta emulsion.",
+    "images": {
+      "full": "/artworks/wl-lot-13-full.webp",
+      "card": "/artworks/wl-lot-13-card.webp",
+      "macro": "/artworks/wl-lot-13-macro.webp",
+      "width": 2200,
+      "height": 1650,
+      "cardWidth": 1100,
+      "cardHeight": 825,
+      "aspectRatio": 1.3333
+    },
+    "palette": [
+      "#E9AF92",
+      "#F0BAA0",
+      "#F8C8AE",
+      "#E0A281"
+    ]
+  }
+]
